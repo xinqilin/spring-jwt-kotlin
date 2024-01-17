@@ -9,15 +9,12 @@ import lombok.NoArgsConstructor
 /**
  * @author Bill.Lin 2024/1/17
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 @Table(name = "roles")
-class Role {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long? = null
-    private val name: String? = null
-}
+data class Role(
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Long? = null,
+        val name: String? = null
+)
