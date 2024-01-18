@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
+import org.springframework.stereotype.Component
 import org.springframework.util.StringUtils
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
@@ -19,6 +20,7 @@ import java.io.IOException
  * that intercepts incoming HTTP requests and validates JWT tokens that are included in the Authorization header.
  * If the token is valid, the filter sets the current user's authentication in the SecurityContext.
  */
+@Component
 class JwtAuthenticationFilter(
         jwtTokenProvider: JwtTokenProvider?,
         userDetailsService: UserDetailsService?
