@@ -23,8 +23,10 @@ class DbSetUpConfig(
         roleDao.save(role1)
         roleDao.save(role2)
 
-        val user1 = userDao.findByUsernameOrEmail("bill", "bill@gmail.com").orElse(User(1, "bill", "bill", "bill@gmail.com", "$2a$10\$5PiyN0MsG0y886d8xWXtwuLXK0Y7zZwcN5xm82b4oDSVr7yF0O6em", setOf(role2)))
-        val user2 = userDao.findByUsernameOrEmail("david", "david@gmail.com").orElse(User(2, "david", "david", "david@gmail.com", "$2a$10\$gqHrslMttQWSsDSVRTK1OehkkBiXsJ/a4z2OURU./dizwOQu5Lovu", setOf(role1)))
+        val user1 = userDao.findByUsernameOrEmail("bill", "bill@gmail.com").orElse(User(1, "bill", "bill", "bill@gmail.com", "bill", setOf(role2)))
+        val user2 = userDao.findByUsernameOrEmail("david", "david@gmail.com").orElse(User(2, "david", "david", "david@gmail.com", "david", setOf(role1)))
+        user1.password = "bill"
+        user2.password = "david"
         userDao.save(user1)
         userDao.save(user2)
     }

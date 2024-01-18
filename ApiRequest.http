@@ -1,0 +1,8 @@
+### Send POST request with json body
+POST http://localhost:8888/api/auth/login
+Content-Type: application/json
+
+{
+  "usernameOrEmail": "bill",
+  "password": "admin"
+}
