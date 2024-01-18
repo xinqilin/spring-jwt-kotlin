@@ -23,7 +23,7 @@ class JwtTokenProvider {
     @Value("\${app.jwt-secret}")
     private val jwtSecret: String? = null
 
-    @Value("\${app-jwt-expiration-milliseconds}")
+    @Value("\${app.jwt-expiration-milliseconds}")
     private val jwtExpirationDate: Long = 0
 
     // generate JWT token
