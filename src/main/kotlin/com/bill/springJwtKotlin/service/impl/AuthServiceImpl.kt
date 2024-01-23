@@ -18,14 +18,13 @@ import org.springframework.stereotype.Service
 @Service
 class AuthServiceImpl(
     private val authenticationManager: AuthenticationManager,
-    private val jwtTokenProvider: JwtTokenProvider,
-    private val passwordEncoder: PasswordEncoder
+    private val jwtTokenProvider: JwtTokenProvider
 ) : AuthService {
     override fun login(loginDto: LoginDto?): String {
         val authentication: Authentication = authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(
                 loginDto?.usernameOrEmail,
-                passwordEncoder.encode(loginDto?.password)
+                loginDto?.password
             )
         )
         SecurityContextHolder.getContext().authentication = authentication

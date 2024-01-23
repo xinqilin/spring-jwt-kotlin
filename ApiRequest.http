@@ -4,5 +4,24 @@ Content-Type: application/json
 
 {
   "usernameOrEmail": "bill",
-  "password": "admin"
+  "password": "bill"
+}
+
+### Send POST request with json body for david
+POST http://localhost:8888/api/auth/login
+Content-Type: application/json
+
+{
+  "usernameOrEmail": "david",
+  "password": "david"
+}
+
+
+### 401 error
+POST http://localhost:8888/api/auth/login
+Content-Type: application/json
+
+{
+  "usernameOrEmail": "bill",
+  "password": "david"
 }
