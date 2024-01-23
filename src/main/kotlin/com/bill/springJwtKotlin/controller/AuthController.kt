@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/auth")
 @RestController
 class AuthController(
-        private val authService: AuthService? = null
+    private val authService: AuthService? = null
 ) {
 
     // Build Login REST API

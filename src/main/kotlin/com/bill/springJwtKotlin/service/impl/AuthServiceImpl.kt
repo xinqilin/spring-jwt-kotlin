@@ -7,6 +7,8 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 
@@ -15,15 +17,17 @@ import org.springframework.stereotype.Service
  */
 @Service
 class AuthServiceImpl(
-        private val authenticationManager: AuthenticationManager,
-        private val jwtTokenProvider: JwtTokenProvider
+    private val authenticationManager: AuthenticationManager,
+    private val jwtTokenProvider: JwtTokenProvider,
+    private val passwordEncoder: PasswordEncoder
 ) : AuthService {
     override fun login(loginDto: LoginDto?): String {
-        val authentication: Authentication = authenticationManager.authenticate(UsernamePasswordAuthenticationToken(
+        val authentication: Authentication = authenticationManager.authenticate(
+            UsernamePasswordAuthenticationToken(
                 loginDto?.usernameOrEmail,
-                loginDto?.password
-        ))
-
+                passwordEncoder.encode(loginDto?.password)
+            )
+        )
         SecurityContextHolder.getContext().authentication = authentication
 
         val token: String = jwtTokenProvider.generateToken(authentication)

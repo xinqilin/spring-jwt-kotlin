@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor
  */
 @NoArgsConstructor
 data class JwtAuthResponse(
-        val accessToken: String,
-        val tokenType: String = "Bearer"
+    val accessToken: String,
+    val tokenType: String = "Bearer"
 )

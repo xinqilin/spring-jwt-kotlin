@@ -26,9 +26,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 @AllArgsConstructor
 class SpringSecurityConfig(
-        private val userDetailsService: UserDetailsService,
-        private val authenticationEntryPoint: JwtAuthenticationEntryPoint,
-        private val authenticationFilter: JwtAuthenticationFilter
+    private val userDetailsService: UserDetailsService,
+    private val authenticationEntryPoint: JwtAuthenticationEntryPoint,
+    private val authenticationFilter: JwtAuthenticationFilter
 ) {
     @Bean
     fun passwordEncoder(): PasswordEncoder {
@@ -39,21 +39,21 @@ class SpringSecurityConfig(
     @Throws(Exception::class)
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http.csrf { csrf -> csrf.disable() }
-                .authorizeHttpRequests { authorize ->
+            .authorizeHttpRequests { authorize ->
 //                    authorize.requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN");
 //                    authorize.requestMatchers(HttpMethod.PUT, "/api/**").hasRole("ADMIN");
 //                    authorize.requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN");
 //                    authorize.requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("ADMIN", "USER");
 //                    authorize.requestMatchers(HttpMethod.PATCH, "/api/**").hasAnyRole("ADMIN", "USER");
 //                    authorize.requestMatchers(HttpMethod.GET, "/api/**").permitAll();
-                    authorize.requestMatchers("/api/auth/**").permitAll()
-                    authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                    authorize.anyRequest().authenticated()
-                }.httpBasic(Customizer.withDefaults())
+                authorize.requestMatchers("/api/auth/**").permitAll()
+                authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                authorize.anyRequest().authenticated()
+            }.httpBasic(Customizer.withDefaults())
 
         http.exceptionHandling { exception: ExceptionHandlingConfigurer<HttpSecurity?> ->
             exception
-                    .authenticationEntryPoint(authenticationEntryPoint)
+                .authenticationEntryPoint(authenticationEntryPoint)
         }
 
         http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter::class.java)

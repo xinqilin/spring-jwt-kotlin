@@ -21,21 +21,21 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 @RequiredArgsConstructor
 class CustomUserDetailsService(
-        private val userDao: UserDao
+    private val userDao: UserDao
 ) : UserDetailsService {
 
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(usernameOrEmail: String?): UserDetails {
         val user: User = userDao.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
-                .orElseThrow { UsernameNotFoundException("User not exists by Username or Email") }
+            .orElseThrow { UsernameNotFoundException("User not exists by Username or Email") }
 
         val authorities: Set<GrantedAuthority> = user.roles!!.map { role -> SimpleGrantedAuthority(role.name) }
-                .toSet()
+            .toSet()
 
         return org.springframework.security.core.userdetails.User(
-                usernameOrEmail,
-                user.password,
-                authorities
+            usernameOrEmail,
+            user.password,
+            authorities
         )
     }
 }
